@@ -1,6 +1,7 @@
 # training_queue
 
 深度学习排队训练框架
+- 
 - 通过 Redis 存储任务进程数据, 方便利用相关客户端远程查看
 - 将任务分化为三种状态(运行中, 等待中, 完成), 方便任务管理
 - 通过给定的 `min_free_memory` ,设置当前训练任务的预估显存占用大小
@@ -46,6 +47,12 @@ mv ./redis.conf /home/user/program/redis-7.0/bin
 ```bash
 # 如果没有添加环境变量, 需要使用如下的绝对路径才可
 /home/user/program/redis-7.0/bin/redis-server /home/user/program/redis-7.0/bin/redis.conf
+# root用户可以直接开放远程端口访问(在 redis 服务端使用)
+iptables -I INPUT -p tcp --dport 6379 -j ACCEPT
+# 非 root 用户可以使用 ssh 隧道, 将远程 redis 服务端的 6379 端口后台映射到本地端口, 间接访问
+ssh -L {本地端口}:localhost:6379 user@yourip
+# VScode 用户可以临时使用终端旁边端口中的`添加端口` 功能映射 6379 端口到本地端口
+
 ```
 
 ## 安装所需 Python 库
