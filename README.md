@@ -18,7 +18,7 @@ cd redis-stable
 make -j4
 cd ./src
 make install PREFIX=/home/user/program/redis-7.0
-make install -j64  PREFIX=/home/user/program/redis-7.0
+make install -j4 PREFIX=/home/user/program/redis-7.0
 
 ```
 
