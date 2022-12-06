@@ -94,3 +94,10 @@ if __name__ == '__main__':
             else:
                 raise e
 ```
+
+cite:
+
+https://zhuanlan.zhihu.com/p/552627015
+https://zhuanlan.zhihu.com/p/552967858
+https://github.com/D-Yifan/dg_gpu_queuer
+
