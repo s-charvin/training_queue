@@ -37,14 +37,14 @@ mv ./redis.conf /home/user/program/redis-7.0/bin
 
 > 将第 309 行左右的 `daemonize no` 修改为 `daemonize yes` , 打开守护进程, 使得服务端可以独立于控制终端运行(在后台运行)
 
-> 将 871 行左右的 `user worker +@list +@connection ~jobs:* on >ffa9203c493aa99` 附近, 添加一个 `user trainer on +@all -DEBUG ~* >Sudadenglu` , 为训练过程设置一个用户 , 账户名为 `trainer` , 登录密码为 `Sudadenglu` , 拥有读取和写入数据的权限.
+> 将 871 行左右的 `user worker +@list +@connection ~jobs:* on >ffa9203c493aa99` 附近, 添加一个 `user trainer on +@all -DEBUG ~* >yoursmassward` , 为训练过程设置一个用户 , 账户名为 `trainer` , 登录密码为 `Sudadenglu` , 拥有读取和写入数据的权限.
 
 > 将 871 行左右的 `user worker +@list +@connection ~jobs:* on >ffa9203c493aa99` 附近, 添加一个 `user default on +@read -DEBUG ~* nopass` , 为数据库设置一个默认用户, 不需要账号密码就能登录, 但是仅有读取的权限, 方便更安全和方便的为远程端服务.
 
 ### 运行 Redis 服务器
 
 ```bash
-/home/user4/program/redis-7.0/bin/redis-server /home/user4/program/redis-7.0/bin/redis.conf
+/home/user/program/redis-7.0/bin/redis-server /home/user/program/redis-7.0/bin/redis.conf
 ```
 
 ## 安装所需 Python 库
@@ -59,8 +59,16 @@ pip install nvitop==0.9.0
 ## 将运行代码嵌入等待框架
 
 
-### 下载此存储库
+### 下载此存储库文件夹
+```bash
+git clone https://github.com/s-charvin/training_queue.git
+# 或者
+wget https://github.com/s-charvin/training_queue/archive/refs/heads/main.zip
+unzip ./main.zip -d ./training_queue/
 
+
+cd training_queue
+```
 ### 使用此框架(示例如下)
 ```python
 from utils import RedisClient
@@ -71,7 +79,7 @@ def train_worker():
     
 if __name__ == '__main__':
     # 初始化并连接到 Redis 服务端
-    redis_client = RedisClient(host='127.0.0.1', port=6379, min_free_memory="20GiB", password="?", username="trainer")
+    redis_client = RedisClient(host='127.0.0.1', port=6379, min_free_memory="20GiB", password="yoursmassward", username="trainer")
     redis_client.check_data()
     redis_client.join_wait_queue()    # 注册当前任务进程到等待任务列表
     while True:
