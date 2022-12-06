@@ -15,7 +15,7 @@ cd /home/user/program
 wget https://download.redis.io/redis-stable.tar.gz
 tar -xzvf redis-stable.tar.gz
 cd redis-stable
-make -j64
+make -j4
 cd ./src
 make install PREFIX=/home/user/program/redis-7.0
 make install -j64  PREFIX=/home/user/program/redis-7.0
@@ -44,6 +44,7 @@ mv ./redis.conf /home/user/program/redis-7.0/bin
 ### 运行 Redis 服务器
 
 ```bash
+# 如果没有添加环境变量, 需要使用如下的绝对路径才可
 /home/user/program/redis-7.0/bin/redis-server /home/user/program/redis-7.0/bin/redis.conf
 ```
 
