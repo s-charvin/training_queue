@@ -32,9 +32,13 @@ mv ./redis.conf /home/user/program/redis-7.0/bin
 修改 `redis.conf` 文件
 
 > 将第 87 行左右的 `bind 127.0.0.1 -::1` 注释掉, 取消与本地 ip 的强制绑定, 方便使用其他电脑远程连接此数据库
+
 > 将第 111 行左右的 `protected-mode yes` 修改为 `protected-mode no` , 取消保护模式, 使得其他电脑远程可以连接此数据库
+
 > 将第 309 行左右的 `daemonize no` 修改为 `daemonize yes` , 打开守护进程, 使得服务端可以独立于控制终端运行(在后台运行)
+
 > 将 871 行左右的 `user worker +@list +@connection ~jobs:* on >ffa9203c493aa99` 附近, 添加一个 `user trainer on +@all -DEBUG ~* >Sudadenglu` , 为训练过程设置一个用户 , 账户名为 `trainer` , 登录密码为 `Sudadenglu` , 拥有读取和写入数据的权限.
+
 > 将 871 行左右的 `user worker +@list +@connection ~jobs:* on >ffa9203c493aa99` 附近, 添加一个 `user default on +@read -DEBUG ~* nopass` , 为数据库设置一个默认用户, 不需要账号密码就能登录, 但是仅有读取的权限, 方便更安全和方便的为远程端服务.
 
 ### 运行 Redis 服务器
